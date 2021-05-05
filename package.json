@@ -1,0 +1,15 @@
+
+  {
+    "name": "carbonfootprint",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:client && npm run setup:server",
+      "setup:client": "cd carbonfootprint.client && npm i",
+      "setup:server": "cd carbonfootprint.server && npm i",
+      "start": "node carbonfootprint.server/index.js"
+    },
+    "engines": {
+      "node": "^14.15.4"
+    }
+  }
+  
