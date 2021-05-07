@@ -15,10 +15,11 @@ class HousesService {
   }
 
   async getHouseByProfileId(profileId) {
-    const house = await dbContext.Houses.findById(profileId).populate('creator', 'name picture')
+    const house = await dbContext.Houses.find(profileId).populate('creator', 'name picture')
     if (!house) {
       throw new BadRequest('No House For This Profile Id')
     }
+    return house
   }
 
   async createHouse(body) {

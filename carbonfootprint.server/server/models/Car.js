@@ -6,7 +6,6 @@ const Car = new Schema(
     title: { type: String, required: true },
     make: { type: String, required: true },
     model: { type: String, required: true },
-    transportationFactor: { type: Number, required: true },
     year: { type: Number, required: true },
     mpg: { type: Number, required: true },
     gasType: { type: String, required: true, default: 'unleaded' },

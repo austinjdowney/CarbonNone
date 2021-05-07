@@ -14,8 +14,8 @@ class CarsService {
     return car
   }
 
-  async getCarByProfileId(profileId) {
-    const car = await dbContext.Cars.findById(profileId).populate('creator', 'name picture')
+  async getCarsByProfileId(profileId) {
+    const car = await dbContext.Cars.find(profileId).populate('creator', 'name picture')
     if (!car) {
       throw new BadRequest('No Cars For This Profile')
     }
@@ -23,7 +23,7 @@ class CarsService {
   }
 
   async createCar(body) {
-    const car = await dbContext.Cars.createCar(body)
+    const car = await dbContext.Cars.create(body)
     return car
   }
 

@@ -15,11 +15,11 @@ class ProfilesService {
   }
 
   async editProfile(body) {
-    const found = this.getProfileById(body.id)
-    if (found.creatorId !== body.creatorId) {
+    const found = await this.getProfileById(body.id)
+    if (found.id !== body.creatorId) {
       throw new BadRequest('Unauthorized Permissions')
     }
-    const profile = await dbContext.Accounts.findOneAndUpdate({ _id: body.id, creatorId: body.creatorId }, body, { new: true })
+    const profile = await dbContext.Accounts.findOneAndUpdate({ _id: body.creatorId }, body, { new: true })
     return profile
   }
 }

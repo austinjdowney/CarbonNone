@@ -10,7 +10,7 @@ import { dbContext } from '../db/DbContext'
 async function createAccountIfNeeded(account, user) {
   if (!account) {
     user._id = user.id
-    account = await dbContext.Account.create({
+    account = await dbContext.Accounts.create({
       ...user,
       subs: [user.sub]
     })
@@ -46,9 +46,9 @@ function sanitizeBody(body) {
 }
 
 class AccountService {
-   /**
+  /**
     * Returns a list user profiles from a query search of name or email likeness
-    * limits to first 20 without offset 
+    * limits to first 20 without offset
     * @param {string} str
    */
   async findProfiles(str = '') {
@@ -58,7 +58,7 @@ class AccountService {
         $or: [{ name: filter }, { email: filter }]
       }
     }
-    return await dbContext.Account
+    return await dbContext.Accounts
       .aggregate([q])
       .project('email picture name')
       .collation({ locale: 'en_US', strength: 1 })
@@ -71,7 +71,7 @@ class AccountService {
    * @param {string} email
    */
   async findProfile(email) {
-    return await dbContext.Account.findOne({ email })
+    return await dbContext.Accounts.findOne({ email })
       .select('name email picture')
   }
 
@@ -84,7 +84,7 @@ class AccountService {
    * @param {any} user
    */
   async getAccount(user) {
-    let account = await dbContext.Account.findOne({
+    let account = await dbContext.Accounts.findOne({
       _id: user.id
     })
     account = await createAccountIfNeeded(account, user)
@@ -99,7 +99,7 @@ class AccountService {
    */
   async updateAccount(user, body) {
     const update = sanitizeBody(body)
-    const account = await dbContext.Account.findOneAndUpdate(
+    const account = await dbContext.Accounts.findOneAndUpdate(
       { _id: user.id },
       { $set: update },
       { runValidators: true, setDefaultsOnInsert: true, new: true }
