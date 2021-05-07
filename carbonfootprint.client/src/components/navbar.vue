@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link class="navbar-brand d-flex" :to="{ name: 'HomePage' }">
       <div class="d-flex flex-column align-items-center">
         <img
           alt="logo"
@@ -23,13 +23,18 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link :to="{ name: 'Home' }" class="nav-link">
+          <router-link :to="{ name: 'HomePage' }" class="nav-link">
             Home
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'About' }" class="nav-link">
+          <router-link :to="{ name: 'AboutPage' }" class="nav-link">
             About
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'ProfilePage', params: { id: user.id } }" class="nav-link">
+            Profile
           </router-link>
         </li>
       </ul>
