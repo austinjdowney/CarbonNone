@@ -1,9 +1,49 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo">
-    <h1 class="my-5 bg-dark text-light p-3 rounded d-flex align-items-center">
-      <span class="mx-2 text-white">Vue 3 Starter</span>
-    </h1>
+  <div class="home container-fluid flex-grow-1 d-flex flex-column">
+    <div class="row">
+      <div class="col-12">
+        Current CO2 Score
+      </div>
+      <div class="col-12">
+        Your Weekly Average
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        Graph/Info/TBD
+      </div>
+      <div class="col-6">
+        Weather/Air API
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        User's Weekly Average
+      </div>
+      <div class="col-12">
+        User1
+      </div>
+      <div class="col-12">
+        User2
+      </div>
+      <div class="col-12">
+        User3
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        Environmental news feed
+      </div>
+      <div class="col-12">
+        article 1
+      </div>
+      <div class="col-12">
+        article 2
+      </div>
+      <div class="col-12">
+        article 3
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,6 +60,9 @@ export default {
   > img{
     height: 200px;
     width: 200px;
+  }
+  *{
+    border: solid 1px red;
   }
 }
 </style>
