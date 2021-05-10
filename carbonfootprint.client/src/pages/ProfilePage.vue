@@ -2,18 +2,48 @@
   <div v-if="state.loading === true && state.activeProfile">
     Loading...
   </div>
-  <div class="profile-page container-fluid" v-else>
+  <div v-else class="profile-page container-fluid">
     <div class="row">
       <div class="col-12">
-        This Week's Score
+        <div class="profile__title text-center">
+          <h1 class="mb-0">
+            CO2/25
+          </h1>
+          <small>This Weeks Score</small>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="graph pb-0">
+          <div class="graph__data">
+            <canvas class="myChart" id="myChart"></canvas>
+          </div>
+          <div class="graph__text d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">
+              Your Scores for the Week
+            </h6>
+            <button class="graph__button btn btn-sm btn-grad">
+              Add Data
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <img src="http://placehold.it/200x200" alt="">
-      </div>
-      <div class="col-12">
-        Your Scores for the Week
+        <div class="profile profile-container component-spacing">
+          <div class="profile__user-info">
+            <h4 class="profile__user-info--name">
+              Logan Ponder
+            </h4>
+            <small class="profile__user-info--bio">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster</small>
+            <button class="profile__user-info--btn btn btn-sm btn-grad">
+              Edit Profile
+            </button>
+          </div>
+          <CreateCarModal />
+          <CreateHouseModal />
+          <CreateDayModal />
+        </div>
         <button title="Open Create Car Form"
                 type="button"
                 class="btn btn-success text-light shadow"
@@ -23,44 +53,25 @@
         >
           Car
         </button>
-        <CreateCarModal />
-        <button title="Open Create House Form"
-                type="button"
-                class="btn btn-success text-light shadow"
-                data-toggle="modal"
-                data-target="#new-house-form"
-                v-if="state.user.isAuthenticated"
-        >
-          House
-        </button>
-        <CreateHouseModal />
-        <CreateDayModal />
-        <button title="Open Create Day Form"
-                type="button"
-                class="btn btn-success text-light shadow"
-                data-toggle="modal"
-                data-target="#new-day-form"
-        >
-          Day
-        </button>
       </div>
+      <button title="Open Create House Form"
+              type="button"
+              class="btn btn-success text-light shadow"
+              data-toggle="modal"
+              data-target="#new-house-form"
+              v-if="state.user.isAuthenticated"
+      >
+        House
+      </button>
     </div>
-    <div class="row">
-      <div class="col-12">
-        User's Profile
-      </div>
-      <div class="col-12">
-        Location:
-      </div>
-      <div class="col-12">
-        Info
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <button>edit profile</button>
-      </div>
-    </div>
+    <button title="Open Create Day Form"
+            type="button"
+            class="btn btn-success text-light shadow"
+            data-toggle="modal"
+            data-target="#new-day-form"
+    >
+      Day
+    </button>
   </div>
 </template>
 
@@ -175,7 +186,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  *{
-    border: solid 1px red;
+  @import '../assets/scss/_variables.scss';
+@import "../assets/scss/main.scss";
+  .graph {
+  padding: 1rem;
+  margin: .5rem;
+}
+.profile {
+  position: relative;
+  &__user-info {
+    &--btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
   }
+}
 </style>
