@@ -1,5 +1,8 @@
 <template>
-  <div class="home container-fluid flex-grow-1 d-flex flex-column">
+  <div v-if="state.loading === true">
+    Loading...
+  </div>
+  <div class="home container-fluid flex-grow-1 d-flex flex-column" v-else>
     <div class="row">
       <div class="col-12">
         Current CO2 Score
@@ -48,8 +51,33 @@
 </template>
 
 <script>
+import { computed, onMounted, reactive } from 'vue'
+import { useRoute } from 'vue-router'
+import { AppState } from '../AppState'
+import { profilesService } from '../services/ProfilesService'
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  props: {
+  },
+  setup() {
+    const route = useRoute()
+    const state = reactive({
+      loading: true,
+      activeProfile: computed(() => AppState.activeProfile),
+      currentDay: computed(() => AppState.currentDay.id),
+      user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
+      profiles: computed(() => AppState.profiles)
+    })
+    onMounted(async() => {
+      await profilesService.getAllProfiles()
+      state.loading = false
+    })
+    return {
+      route,
+      state
+    }
+  }
 }
 </script>
 

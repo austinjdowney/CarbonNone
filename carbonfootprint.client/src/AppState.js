@@ -5,8 +5,8 @@ export const AppState = reactive({
   user: {},
   account: {},
   activeProfile: null,
-  allProfiles: [],
-  house: {},
+  profiles: [],
+  house: [],
   cars: [],
   days: [],
   currentDay: null,
@@ -76,10 +76,10 @@ export const AppState = reactive({
       gasType: 'diesel'
     }
   ],
-  defaultHouse: {
+  defaultHouse: [{
     title: 'National Average Home Usage',
     members: 1,
     electricKwh: 877,
     waterGallons: 3000
-  }
+  }]
 })

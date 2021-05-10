@@ -9,8 +9,8 @@ export class ProfilesController extends BaseController {
   constructor() {
     super('api/profiles')
     this.router
-      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAllProfiles)
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/:id', this.getProfileById)
       .get('/:id/houses', this.getHouseByProfileId)
       .get('/:id/cars', this.getCarsByProfileId)
