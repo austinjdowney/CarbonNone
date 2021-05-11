@@ -7,7 +7,7 @@
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by DeezNuts
+      Made with 💖 by Austin Downey, Alec Victory, Logan Ponder, and Taylor Oppedyk
     </div>
   </footer>
 </template>

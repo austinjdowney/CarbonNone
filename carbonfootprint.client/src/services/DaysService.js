@@ -1,5 +1,4 @@
 import { AppState } from '../AppState'
-import router from '../router'
 import { api } from './AxiosService'
 
 class DaysService {
@@ -20,7 +19,7 @@ class DaysService {
 
   async createDay(data) {
     const res = await api.post('api/days', data)
-    router.push({ name: 'ProfilePage', params: { id: res.data.id } })
+    this.getDaysByProfileId(res.data.creatorId)
   }
 
   async editDay(newDay) {

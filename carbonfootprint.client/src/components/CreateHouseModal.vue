@@ -87,11 +87,10 @@
 
 <script>
 import { reactive, computed } from 'vue'
-import { carsService } from '../services/CarsService'
+import { housesService } from '../services/HousesService'
 import { AppState } from '../AppState'
 import Notification from '../utils/Notification'
 import { useRoute } from 'vue-router'
-// import $ from 'jquery'
 export default {
   name: 'CreateHouseModal',
   props: {
@@ -107,12 +106,11 @@ export default {
     return {
       route,
       state,
-      async createCar() {
+      async createHouse() {
         try {
-          state.newCar.activeProfile = route.params.id
-          await carsService.createCar(state.newCar)
-          state.newCar = {}
-          Notification.toast('Successfully Created Car', 'success')
+          await housesService.createHouse(state.newHouse)
+          state.newHouse = {}
+          Notification.toast('Successfully Created House', 'success')
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')
         }

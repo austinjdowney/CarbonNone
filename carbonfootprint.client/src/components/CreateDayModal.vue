@@ -46,14 +46,13 @@
                          id="carMiles"
                          placeholder="Miles..."
                          v-model="state.newDay.carMiles"
-                         required
                   >
                 </div>
               </div>
               <div class="col-12">
                 <div class="dropdown">
-                  <small>Select your vehicle</small>
-                  <select class="form-select" aria-labelledby="dropdownMenuButton" v-model="state.myCar">
+                  <small>Select Your Vehicle</small>
+                  <select class="form-select" aria-labelledby="dropdownMenuButton" v-model="state.newDay.carId" required>
                     <option v-for="car in state.cars" :key="car.id" :value="car.id">
                       {{ car.title }}
                     </option>
@@ -68,7 +67,6 @@
                          id="busMiles"
                          placeholder="Miles..."
                          v-model="state.newDay.busMiles"
-                         required
                   >
                 </div>
               </div>
@@ -80,7 +78,6 @@
                          id="bikeMiles"
                          placeholder="Miles..."
                          v-model="state.newDay.bikeMiles"
-                         required
                   >
                 </div>
               </div>
@@ -92,7 +89,6 @@
                          id="walkMiles"
                          placeholder="Miles..."
                          v-model="state.newDay.walkMiles"
-                         required
                   >
                 </div>
               </div>
@@ -103,8 +99,8 @@
               <div class="row">
                 <div class="col-12">
                   <div class="dropdown">
-                    <small>Select your house</small>
-                    <select class="form-select" aria-labelledby="dropdownMenuButton" v-model="state.myHouse">
+                    <small>Select Your House</small>
+                    <select class="form-select" aria-labelledby="dropdownMenuButton" v-model="state.newDay.houseId" required>
                       <option v-for="house in state.house" :key="house.id" :value="house.id">
                         {{ house.title }}
                       </option>
@@ -133,22 +129,33 @@
 <script>
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
+import { daysService } from '../services/DaysService'
+import Notification from '../utils/Notification'
+
 export default {
   name: 'CreateDayModal',
   setup() {
     const state = reactive({
       newDay: {},
-      myCar: {},
       house: computed(() => AppState.house),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
       cars: computed(() => AppState.cars)
     })
     return {
-      state
+      state,
+      async createDay() {
+        try {
+          state.newDay.date = new Date(state.newDay.date).toISOString().slice(0, 10)
+          await daysService.createDay(state.newDay)
+          state.newDay = {}
+          Notification.toast('Successfully Created Day', 'success')
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'warning')
+        }
+      }
     }
-  },
-  components: {}
+  }
 }
 </script>
 

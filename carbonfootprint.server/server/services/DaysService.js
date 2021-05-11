@@ -22,11 +22,12 @@ class DaysService {
 
   async getDaysByProfileId(query = {}) {
     const days = await dbContext.Days.find(query).populate('creator', 'name picture')
+    // .sort({date: -1})
     if (!days) {
       throw new BadRequest('No Day For This Profile Id')
     }
     for (const day of days) {
-      day.dailyScore = await dailyScore(day)
+      day.dailyScore = await dailyScore(day._doc)
     }
     return days
   }

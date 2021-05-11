@@ -71,15 +71,19 @@
                   >
                 </div>
                 <div class="col-12">
-                  <div class="form-group">
-                    <label for="gasType">Gas Type:</label>
-                    <input type="text"
-                           class="form-control"
-                           id="gasType"
-                           placeholder="Gas Type..."
-                           v-model="state.newCar.gasType"
-                           required
-                    >
+                  <div class="dropdown">
+                    <small>Select Your Fuel Type</small>
+                    <select class="form-select" aria-labelledby="dropdownMenuButton" v-model="state.newCar.gasType">
+                      <option value="unleaded">
+                        Unleaded
+                      </option>
+                      <option value="hybrid">
+                        Hybrid
+                      </option>
+                      <option value="diesel">
+                        Diesel
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-12">
@@ -135,7 +139,6 @@ export default {
       state,
       async createCar() {
         try {
-          state.newCar.activeProfile = route.params.id
           await carsService.createCar(state.newCar)
           state.newCar = {}
           Notification.toast('Successfully Created Car', 'success')

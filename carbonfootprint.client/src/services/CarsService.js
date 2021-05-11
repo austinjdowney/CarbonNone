@@ -1,5 +1,4 @@
 import { AppState } from '../AppState'
-import router from '../router'
 import { api } from './AxiosService'
 
 class CarsService {
@@ -15,12 +14,12 @@ class CarsService {
 
   async getCarsByProfileId(profileId) {
     const res = await api.get(`api/profiles/${profileId}/cars`)
-    AppState.cars = [res.data, ...AppState.defaultCars]
+    AppState.cars = res.data
   }
 
   async createCar(data) {
-    const res = await api.post('api/cars', data)
-    router.push({ name: 'ProfilePage', params: { id: res.data.id } })
+    await api.post('api/cars', data)
+    this.getAllCars()
   }
 
   async deleteCar(id, profileId) {

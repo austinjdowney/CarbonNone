@@ -3,6 +3,7 @@
     Loading...
   </div>
   <div v-else class="profile-page container-fluid">
+    <!-- Weeks Score -->
     <div class="row">
       <div class="col-12">
         <div class="profile__title text-center">
@@ -21,8 +22,14 @@
             <h6 class="mb-0">
               Your Scores for the Week
             </h6>
-            <button class="graph__button btn btn-sm btn-grad">
-              Add Data
+            <button title="Open Create Day Form"
+                    type="button"
+                    class="btn btn-grad btn-lg"
+                    data-toggle="modal"
+                    data-target="#new-day-form"
+                    v-if="state.account.id === route.params.id"
+            >
+              Add Day
             </button>
           </div>
         </div>
@@ -33,45 +40,58 @@
         <div class="profile profile-container component-spacing">
           <div class="profile__user-info">
             <h4 class="profile__user-info--name">
-              Logan Ponder
+              {{ state.activeProfile.name }}
             </h4>
             <small class="profile__user-info--bio">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster</small>
-            <button class="profile__user-info--btn btn btn-sm btn-grad">
-              Edit Profile
-            </button>
           </div>
-          <CreateCarModal />
-          <CreateHouseModal />
-          <CreateDayModal />
+          <div class="profile__details mt-3">
+            <div class="profile__details--header d-flex justify-content-between">
+              <h6>House Details</h6>
+              <button title="Open Create House Form"
+                      type="button"
+                      class="btn btn-grad btn-sm"
+                      data-toggle="modal"
+                      data-target="#new-house-form"
+                      v-if="!state.house && state.account.id === route.params.id"
+              >
+                House
+              </button>
+              <button v-else
+                      class="btn btn-sm btn-grad"
+                      data-toggle="modal"
+                      data-target="#edit-house-form"
+              >
+                Edit House
+              </button>
+            </div>
+            <div class="profile__details--house d-flex flex-column">
+              <p>Title: {{ state.house[0].title }}</p>
+              <p>Monthly EKwh: {{ state.house[0].electricKwh }}</p>
+              <p>Monthly Gallons: {{ state.house[0].waterGallons }}</p>
+            </div>
+            <div class="profile__details--car">
+              <div class="profile__details--car-header d-flex justify-content-between">
+                <h6>Car Details</h6>
+                <button title="Open Create Car Form"
+                        type="button"
+                        class="btn btn-sm btn-grad"
+                        data-toggle="modal"
+                        data-target="#new-car-form"
+                        v-if="state.account.id === route.params.id"
+                >
+                  Add Car
+                </button>
+              </div>
+              <Car v-for="car in state.cars" :key="car.id" :car="car" />
+            </div>
+          </div>
         </div>
-        <button title="Open Create Car Form"
-                type="button"
-                class="btn btn-success text-light shadow"
-                data-toggle="modal"
-                data-target="#new-car-form"
-                v-if="state.user.isAuthenticated"
-        >
-          Car
-        </button>
+        <CreateCarModal />
+        <CreateHouseModal />
+        <CreateDayModal />
+        <EditHouseModal />
       </div>
-      <button title="Open Create House Form"
-              type="button"
-              class="btn btn-success text-light shadow"
-              data-toggle="modal"
-              data-target="#new-house-form"
-              v-if="state.user.isAuthenticated"
-      >
-        House
-      </button>
     </div>
-    <button title="Open Create Day Form"
-            type="button"
-            class="btn btn-success text-light shadow"
-            data-toggle="modal"
-            data-target="#new-day-form"
-    >
-      Day
-    </button>
   </div>
 </template>
 
@@ -97,9 +117,10 @@ export default {
       newCar: {},
       newHouse: {},
       newDay: {},
-      activeCar: {},
-      activeHouse: {},
       activeDay: {},
+      days: computed(() => AppState.days),
+      house: computed(() => AppState.house),
+      cars: computed(() => AppState.cars),
       activeProfile: computed(() => AppState.activeProfile),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account)
