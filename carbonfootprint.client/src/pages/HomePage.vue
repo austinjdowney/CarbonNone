@@ -132,54 +132,20 @@
     <div class="row">
       <div class="col-12 ml-2">
         <h5 class="text-left mt-3 news__title">
-          Your Enviromental News Feed
+          Your Environmental News Feed
         </h5>
-      </div>
-      <div class="col-12">
-        <div class="news-container d-flex">
-          <img src="//placehold.it/100x100" alt="" class="img-fluid new-container__img">
-          <div class="news-container__text d-flex flex-column text-left p-2">
-            <h6>Title</h6>
-            <small class="">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="news-container d-flex">
-          <img src="//placehold.it/100x100" alt="" class="img-fluid new-container__img">
-          <div class="news-container__text d-flex flex-column text-left p-2">
-            <h6>Title</h6>
-            <small class="">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="news-container d-flex">
-          <img src="//placehold.it/100x100" alt="" class="img-fluid new-container__img">
-          <div class="news-container__text d-flex flex-column text-left p-2">
-            <h6>Title</h6>
-            <small class="">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="news-container d-flex">
-          <img src="//placehold.it/100x100" alt="" class="img-fluid new-container__img">
-          <div class="news-container__text d-flex flex-column text-left p-2">
-            <h6>Title</h6>
-            <small class="">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches</small>
-          </div>
-        </div>
+        <NewsFeed />
+        <!-- insert vfor news feed right heyahhhr -->
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import { computed, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 import { profilesService } from '../services/ProfilesService'
+import { apiService } from '../services/ApiService'
 export default {
   name: 'HomePage',
   props: {
@@ -189,12 +155,14 @@ export default {
     const state = reactive({
       loading: true,
       activeProfile: computed(() => AppState.activeProfile),
+      currentDay: computed(() => AppState.currentDay.id),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
       profiles: computed(() => AppState.profiles)
     })
     onMounted(async() => {
       await profilesService.getAllProfiles()
+      await apiService.getNewsApi()
       state.loading = false
     })
     return {
@@ -204,7 +172,6 @@ export default {
   }
 }
 </script>
-
 <style scoped lang="scss">
 @import '../assets/scss/_variables.scss';
 @import "../assets/scss/main.scss";
