@@ -131,7 +131,7 @@ import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { daysService } from '../services/DaysService'
 import Notification from '../utils/Notification'
-
+import $ from 'jquery'
 export default {
   name: 'CreateDayModal',
   setup() {
@@ -149,6 +149,7 @@ export default {
           state.newDay.date = new Date(state.newDay.date).toISOString().slice(0, 10)
           await daysService.createDay(state.newDay)
           state.newDay = {}
+          $('#new-day-form').modal('hide')
           Notification.toast('Successfully Created Day', 'success')
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')

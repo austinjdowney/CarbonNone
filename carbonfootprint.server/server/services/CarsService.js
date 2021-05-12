@@ -41,7 +41,8 @@ class CarsService {
     if (car.creatorId !== profileId) {
       throw new BadRequest('Unauthorized Permissions')
     }
-    await dbContext.Cars.findOneAndDelete({ _id: id })
+    car.closed = true
+    await dbContext.Cars.findOneAndUpdate({ _id: id, closed: false }, car, { new: true })
     return 'Successfully Deleted'
   }
 }

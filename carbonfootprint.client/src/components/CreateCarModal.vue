@@ -24,7 +24,7 @@
                   <label for="title">Car Title:</label>
                   <input type="text"
                          class="form-control"
-                         id="title"
+                         id="carTitle"
                          placeholder="Car Title..."
                          v-model="state.newCar.title"
                          required
@@ -121,7 +121,7 @@ import { carsService } from '../services/CarsService'
 import { AppState } from '../AppState'
 import Notification from '../utils/Notification'
 import { useRoute } from 'vue-router'
-// import $ from 'jquery'
+import $ from 'jquery'
 export default {
   name: 'CreateCarModal',
   props: {
@@ -141,6 +141,7 @@ export default {
         try {
           await carsService.createCar(state.newCar)
           state.newCar = {}
+          $('#new-car-form').modal('hide')
           Notification.toast('Successfully Created Car', 'success')
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')

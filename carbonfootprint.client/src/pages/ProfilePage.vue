@@ -135,15 +135,6 @@ export default {
     return {
       route,
       state,
-      async deleteCar() {
-        try {
-          if (await Notification.confirmAction('Are you sure?', "You won't be able to revert this!", 'warning', 'Yes, Remove Car')) {
-            await carsService.deleteCar(state.cars.id, state.profiles.id)
-          }
-        } catch (error) {
-          Notification.toast('Error: ' + error, 'warning')
-        }
-      },
       async createCar() {
         try {
           state.newCar.activeProfile = route.params.id

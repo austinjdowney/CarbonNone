@@ -24,12 +24,12 @@ class CarsService {
 
   async deleteCar(id, profileId) {
     await api.delete(`api/cars/${id}`)
-    this.getProfileById(profileId)
+    this.getCarsByProfileId(profileId)
   }
 
   async editCar(newCar) {
     await api.put(`api/cars/${newCar.id}`, newCar)
-    this.getCarById(newCar.id)
+    this.getAllCars()
   }
 }
 

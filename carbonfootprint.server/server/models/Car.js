@@ -9,7 +9,8 @@ const Car = new Schema(
     year: { type: Number, required: true },
     mpg: { type: Number, required: true },
     gasType: { type: String, required: true, default: 'unleaded' },
-    creatorId: { type: String, ref: 'Account', required: true }
+    creatorId: { type: String, ref: 'Account', required: true },
+    closed: { type: Boolean, default: false, required: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

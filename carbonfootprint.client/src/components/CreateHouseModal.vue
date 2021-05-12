@@ -91,6 +91,7 @@ import { housesService } from '../services/HousesService'
 import { AppState } from '../AppState'
 import Notification from '../utils/Notification'
 import { useRoute } from 'vue-router'
+import $ from 'jquery'
 export default {
   name: 'CreateHouseModal',
   props: {
@@ -110,6 +111,7 @@ export default {
         try {
           await housesService.createHouse(state.newHouse)
           state.newHouse = {}
+          $('#new-house-form').modal('hide')
           Notification.toast('Successfully Created House', 'success')
         } catch (error) {
           Notification.toast('Error: ' + error, 'warning')
