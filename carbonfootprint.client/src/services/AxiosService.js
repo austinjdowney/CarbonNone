@@ -4,6 +4,10 @@ export const api = Axios.create({
   baseURL,
   timeout: 8000
 })
+export const weatherApi = Axios.create({
+  baseURL: 'http://api.airvisual.com/v2/city?city=Boise&state=Idaho&country=USA&key=040cdc41-fc2a-44dd-a696-5d6245acce0e',
+  timeout: 8000
+})
 export const newsApi = Axios.create({
   baseURL: 'https://custom-search.p.rapidapi.com/api/search/CustomNewsSearchAPIV2?q=Carbon Emissions&searchEngineId=687417457347224395&pageNumber=1',
   timeout: 8000,

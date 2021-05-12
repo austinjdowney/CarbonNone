@@ -40,8 +40,11 @@
     </div>
     <div class="row">
       <div class="col-6 flex-grow-1 d-flex stretch">
-        <div class="component-spacing--small w-100">
-          Graph/Info/TBD
+        <div class="component-spacing--small w-100" v-if="state.weather">
+          <p> <b> {{ state.weather.city }}, {{ state.weather.state }} </b> </p>
+          <img :src="getPic()" class="weatherImg" />
+          <p> AQI: {{ state.weather.current.pollution.aqius }} </p>
+          <p>Temp: {{ state.tempFahrenheit }} </p>
         </div>
       </div>
       <div class="col-6">
@@ -65,13 +68,15 @@
           User's Weekly Average
         </h5>
       </div>
-      <Profile v-for="profile in state.profiles" :key="profile.id" :profile="profile" />
+      <div class="col-12">
+        <Profile v-for="profile in state.profiles" :key="profile.id" :profile="profile" />
+      </div>
       <div class="row">
-        <div class="col-12 ml-2">
+        <div class="col-12">
           <h5 class="text-left mt-3 news__title">
             Your Environmental News Feed
           </h5>
-          <NewsFeed />
+          <NewsFeed v-for="news in state.news" :key="news.id" :news="news" />
         </div>
       </div>
     </div>
@@ -79,7 +84,6 @@
 </template>
 <script>
 import { computed, onMounted, reactive } from 'vue'
-import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 import { profilesService } from '../services/ProfilesService'
 import { apiService } from '../services/ApiService'
@@ -88,22 +92,32 @@ export default {
   props: {
   },
   setup() {
-    const route = useRoute()
     const state = reactive({
       loading: true,
       activeProfile: computed(() => AppState.activeProfile),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
-      profiles: computed(() => AppState.profiles)
+      profiles: computed(() => AppState.profiles),
+      news: computed(() => AppState.newsApi),
+      weather: computed(() => AppState.weatherApi),
+      tempFahrenheit: computed(() => {
+        const C = state.weather.current.weather.tp
+        return (C * (9 / 5) + 32)
+      })
+      // icon: computed(()=> AppState.weatherApi.current.weather.ic)
     })
     onMounted(async() => {
       await profilesService.getAllProfiles()
       await apiService.getNewsApi()
+      await apiService.getWeatherApi()
       state.loading = false
     })
     return {
-      route,
-      state
+      state,
+      getPic() {
+        console.log(`../assets/img/${state.weather.current.weather.ic}.png`)
+        return require(`@/assets/img/${state.weather.current.weather.ic}.png`)
+      }
     }
   }
 }
@@ -156,6 +170,9 @@ export default {
       font-weight: bold;
     }
   }
+}
+.weatherImg{
+  height: 80px;
 }
 .user__title {
   font-family: $primary-font;;
