@@ -4,13 +4,14 @@
   </div>
   <div v-else class="profile-page container-fluid">
     <!-- Weeks Score -->
-    <div class="row">
+    <div class="row" v-if="state.todayScore">
       <div class="col-12">
         <div class="profile__title text-center">
           <h1 class="mb-0">
-            CO2/25
+            {{ state.todayScore.dailyScore }}
+            {{ state.todayScore.date }}
           </h1>
-          <small>This Weeks Score</small>
+          <small>Most Recent Score</small>
         </div>
       </div>
       <div class="col-12">
@@ -18,8 +19,12 @@
           <div class="graph__data">
             <canvas class="myChart" id="myChart"></canvas>
           </div>
-          <div class="graph__text d-flex justify-content-between align-items-center">
-            <h6 class="mb-0">
+          <div class="graph__text">
+            <h1 class="mb-0" v-for="day in state.days" :key="day.id">
+              {{ day.dailyScore }}
+              {{ day.date }}
+            </h1>
+            <h6 class="mb-0  d-flex justify-content-between align-items-center">
               Your Scores for the Week
             </h6>
             <button title="Open Create Day Form"
@@ -120,6 +125,7 @@ export default {
           await carsService.getCarsByProfileId(newParams.id)
           await housesService.getHousesByProfileId(newParams.id)
           await daysService.getDaysByProfileId(newParams.id)
+          state.loading = false
         }
       }
     )
@@ -129,7 +135,8 @@ export default {
       newHouse: {},
       newDay: {},
       activeDay: {},
-      days: computed(() => AppState.days),
+      days: computed(() => AppState.days.splice(0, 7)),
+      todayScore: computed(() => state.days[0]),
       house: computed(() => AppState.house),
       cars: computed(() => AppState.cars),
       activeProfile: computed(() => AppState.activeProfile),
@@ -206,6 +213,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="scss" scoped>

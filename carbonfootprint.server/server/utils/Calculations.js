@@ -6,7 +6,8 @@ export async function dailyScore(day) {
   const house = await housesService.getHouseById(day.houseId)
   let totalScore = (day.carMiles / car.mpg) * car.transportationFactor
   totalScore += ((day.busMiles * 0.1) / 15)
-  totalScore += ((house.electricKwh * 0.309) / house.members)
-  totalScore += ((house.waterGallons * 0.08) / house.members)
+  totalScore += (((house.electricKwh * 0.309) / house.members) / 30)
+  totalScore += (((house.waterGallons * 0.08) / house.members) / 30)
+  totalScore = Math.floor(totalScore, -1)
   return totalScore
 }

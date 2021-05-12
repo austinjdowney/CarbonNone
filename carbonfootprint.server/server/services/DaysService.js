@@ -4,7 +4,7 @@ import { BadRequest } from '../utils/Errors'
 
 class DaysService {
   async getAllDays(query = {}) {
-    const days = await dbContext.Days.find(query).populate('creator', 'name picture')
+    const days = await dbContext.Days.find(query).populate('creator', 'name picture').sort({ date: -1 })
     for (const day of days) {
       day.dailyScore = await dailyScore(day)
     }
@@ -12,7 +12,7 @@ class DaysService {
   }
 
   async getDayById(id) {
-    const day = await dbContext.Days.findById(id).populate('creator', 'name picture')
+    const day = await dbContext.Days.findById(id).populate('creator', 'name picture').sort({ date: -1 })
     if (!day) {
       throw new BadRequest('Invalid Id')
     }
@@ -21,8 +21,7 @@ class DaysService {
   }
 
   async getDaysByProfileId(query = {}) {
-    const days = await dbContext.Days.find(query).populate('creator', 'name picture')
-    // .sort({date: -1})
+    const days = await dbContext.Days.find(query).populate('creator', 'name picture').sort({ date: -1 })
     if (!days) {
       throw new BadRequest('No Day For This Profile Id')
     }

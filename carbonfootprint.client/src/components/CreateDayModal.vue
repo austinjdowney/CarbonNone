@@ -53,7 +53,7 @@
                 <div class="dropdown">
                   <small>Select Your Vehicle</small>
                   <select class="form-select" aria-labelledby="dropdownMenuButton" v-model="state.newDay.carId" required>
-                    <option v-for="car in state.cars" :key="car.id" :value="car.id">
+                    <option v-for="car in state.closedCar" :key="car.id" :value="car.id">
                       {{ car.title }}
                     </option>
                   </select>
@@ -137,6 +137,7 @@ export default {
   setup() {
     const state = reactive({
       newDay: {},
+      closedCar: computed(() => AppState.cars.filter(c => c.closed === false)),
       house: computed(() => AppState.house),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),

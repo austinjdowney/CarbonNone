@@ -92,7 +92,6 @@ export default {
     const state = reactive({
       loading: true,
       activeProfile: computed(() => AppState.activeProfile),
-      currentDay: computed(() => AppState.currentDay.id),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
       profiles: computed(() => AppState.profiles)

@@ -7,6 +7,8 @@
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
+      www.github.com/austinjdowney
+      www.github.com/alecvictory
       Made with 💖 by Austin Downey, Alec Victory, Logan Ponder, and Taylor Oppedyk
     </div>
   </footer>
