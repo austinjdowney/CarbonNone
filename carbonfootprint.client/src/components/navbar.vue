@@ -32,7 +32,7 @@
             About
           </router-link>
         </li>
-        <li class="nav-item">
+        <li @click="activeProfile" class="nav-item">
           <router-link :to="{ name: 'ProfilePage', params: { id: account.id } }" class="nav-link">
             Profile
           </router-link>
@@ -102,6 +102,9 @@ export default {
       },
       async logout() {
         await AuthService.logout({ returnTo: window.location.origin })
+      },
+      activeProfile() {
+        AppState.activeProfile = state.account
       }
     }
   }

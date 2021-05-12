@@ -65,77 +65,14 @@
           User's Weekly Average
         </h5>
       </div>
-      <div class="col-12">
-        <div class="user-summary component-spacing d-flex">
-          <img src="//placehold.it/100x100" alt="" class="user-summary__avatar mr-2">
-          <div class="user-summary__data d-flex flex-column w-100 text-left">
-            <p class="user-summary__data--name mb-0">
-              Taylor Oppedyk
-            </p>
-            <div class="progress">
-              <div class="progress-bar bg-warning"
-                   role="progressbar"
-                   style="width: 65%"
-                   aria-valuenow="65"
-                   aria-valuemin="0"
-                   aria-valuemax="100"
-              >
-                65%
-              </div>
-            </div>
-          </div>
+      <Profile v-for="profile in state.profiles" :key="profile.id" :profile="profile" />
+      <div class="row">
+        <div class="col-12 ml-2">
+          <h5 class="text-left mt-3 news__title">
+            Your Environmental News Feed
+          </h5>
+          <NewsFeed />
         </div>
-      </div>
-      <div class="col-12">
-        <div class="user-summary component-spacing d-flex">
-          <img src="//placehold.it/100x100" alt="" class="user-summary__avatar mr-2">
-          <div class="user-summary__data d-flex flex-column w-100 text-left">
-            <p class="user-summary__data--name mb-0">
-              Alec Victory
-            </p>
-            <div class="progress">
-              <div class="progress-bar bg-primary"
-                   role="progressbar"
-                   style="width: 35%"
-                   aria-valuenow="35"
-                   aria-valuemin="0"
-                   aria-valuemax="100"
-              >
-                35%
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="user-summary component-spacing d-flex">
-          <img src="//placehold.it/100x100" alt="" class="user-summary__avatar mr-2">
-          <div class="user-summary__data d-flex flex-column w-100 text-left">
-            <p class="user-summary__data--name mb-0">
-              Austin Downey
-            </p>
-            <div class="progress">
-              <div class="progress-bar bg-danger"
-                   role="progressbar"
-                   style="width: 95%"
-                   aria-valuenow="95"
-                   aria-valuemin="0"
-                   aria-valuemax="100"
-              >
-                95%
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12 ml-2">
-        <h5 class="text-left mt-3 news__title">
-          Your Environmental News Feed
-        </h5>
-        <NewsFeed />
-        <!-- insert vfor news feed right heyahhhr -->
       </div>
     </div>
   </div>

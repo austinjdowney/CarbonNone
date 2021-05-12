@@ -1,5 +1,5 @@
 <template>
-  <div v-if="state.loading === true && state.activeProfile">
+  <div v-if="state.loading === true && !state.activeProfile">
     Loading...
   </div>
   <div v-else class="profile-page container-fluid">
@@ -39,7 +39,7 @@
       <div class="col-12">
         <div class="profile profile-container component-spacing">
           <div class="profile__user-info">
-            <h4 class="profile__user-info--name">
+            <h4 class="profile__user-info--name" v-if="state.activeProfile">
               {{ state.activeProfile.name }}
             </h4>
             <small class="profile__user-info--bio">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster</small>
@@ -56,7 +56,7 @@
               >
                 House
               </button>
-              <button v-else
+              <button v-if="state.account.id === route.params.id"
                       class="btn btn-sm btn-grad"
                       data-toggle="modal"
                       data-target="#edit-house-form"
@@ -64,7 +64,7 @@
                 Edit House
               </button>
             </div>
-            <div class="profile__details--house d-flex flex-column">
+            <div class="profile__details--house d-flex flex-column" v-if="state.house.length > 0">
               <p>Title: {{ state.house[0].title }}</p>
               <p>Monthly EKwh: {{ state.house[0].electricKwh }}</p>
               <p>Monthly Gallons: {{ state.house[0].waterGallons }}</p>
@@ -98,7 +98,7 @@
 <script>
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onMounted, reactive, watch } from 'vue'
 import Notification from '../utils/Notification'
 import { profilesService } from '../services/ProfilesService'
 import { carsService } from '../services/CarsService'
@@ -107,11 +107,22 @@ import { daysService } from '../services/DaysService'
 
 export default {
   name: 'ProfilePage',
-
   props: {
   },
   setup() {
     const route = useRoute()
+    watch(
+      () => route.params,
+      async newParams => {
+        // function you want to run when the params change, you can also use newParams.id
+        if (newParams.id) {
+          await profilesService.getProfileById(newParams.id)
+          await carsService.getCarsByProfileId(newParams.id)
+          await housesService.getHousesByProfileId(newParams.id)
+          await daysService.getDaysByProfileId(newParams.id)
+        }
+      }
+    )
     const state = reactive({
       loading: true,
       newCar: {},
