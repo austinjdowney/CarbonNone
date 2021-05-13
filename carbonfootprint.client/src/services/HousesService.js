@@ -19,8 +19,8 @@ class HousesService {
   }
 
   async createHouse(data) {
-    await api.post('api/houses', data)
-    this.getAllHouses()
+    const res = await api.post('api/houses', data)
+    this.getHousesByProfileId(res.data.creatorId)
   }
 
   async editHouse(newHouse) {

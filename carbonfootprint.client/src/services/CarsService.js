@@ -18,8 +18,8 @@ class CarsService {
   }
 
   async createCar(data) {
-    await api.post('api/cars', data)
-    this.getAllCars()
+    const res = await api.post('api/cars', data)
+    this.getCarsByProfileId(res.data.creatorId)
   }
 
   async deleteCar(id, profileId) {

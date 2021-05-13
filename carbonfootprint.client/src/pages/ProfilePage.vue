@@ -27,19 +27,19 @@
             <h6 class="mb-0  d-flex justify-content-between align-items-center">
               Your Scores for the Week
             </h6>
-            <button title="Open Create Day Form"
-                    type="button"
-                    class="btn btn-grad btn-lg"
-                    data-toggle="modal"
-                    data-target="#new-day-form"
-                    v-if="state.account.id === route.params.id"
-            >
-              Add Day
-            </button>
           </div>
         </div>
       </div>
     </div>
+    <button title="Open Create Day Form"
+            type="button"
+            class="btn btn-grad btn-lg"
+            data-toggle="modal"
+            data-target="#new-day-form"
+            v-if="state.account.id === route.params.id"
+    >
+      Add Day
+    </button>
     <div class="row">
       <div class="col-12">
         <div class="profile profile-container component-spacing">
@@ -57,11 +57,11 @@
                       class="btn btn-grad btn-sm"
                       data-toggle="modal"
                       data-target="#new-house-form"
-                      v-if="!state.house && state.account.id === route.params.id"
+                      v-if="state.house.length === 0 && state.account.id === route.params.id"
               >
                 House
               </button>
-              <button v-if="state.account.id === route.params.id"
+              <button v-if="state.account.id === route.params.id && state.house.length !== 0"
                       class="btn btn-sm btn-grad"
                       data-toggle="modal"
                       data-target="#edit-house-form"
@@ -70,7 +70,7 @@
               </button>
             </div>
             <div class="profile__details--house d-flex flex-column" v-if="state.house.length > 0">
-              <p>Title: {{ state.house[0].title }}</p>
+              <p>{{ state.house[0].title }}</p>
               <p>Monthly EKwh: {{ state.house[0].electricKwh }}</p>
               <p>Monthly Gallons: {{ state.house[0].waterGallons }}</p>
             </div>

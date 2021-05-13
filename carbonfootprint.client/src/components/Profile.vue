@@ -6,15 +6,15 @@
         <p class="user-summary__data--name mb-0">
           {{ profile.name }}
         </p>
-        <div class="progress">
+        <div class="progress" v-if="state.profileDay">
           <div class="progress-bar bg-warning"
                role="progressbar"
-               style="width: 65%"
-               aria-valuenow="65"
+               :style="'width:' + `${state.profileDay.dailyScore}` +'%;'"
+               :aria-valuenow="`${state.profileDay.dailyScore}`"
                aria-valuemin="0"
                aria-valuemax="100"
           >
-            220kg/co2
+            {{ state.profileDay.dailyScore }} kg/co2
           </div>
         </div>
       </div>
@@ -23,10 +23,10 @@
 </template>
 
 <script>
-// import { computed, onMounted, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import Notification from '../utils/Notification'
-// import { AppState } from '../AppState'
+import { AppState } from '../AppState'
 // import { profilesService } from '../services/ProfilesService'
 // import { apiService } from '../services/ApiService'
 
@@ -40,9 +40,19 @@ export default {
   },
   setup(props) {
     const router = useRouter()
+    const state = reactive({
+      profileDay: computed(() => AppState.days.find(d => d.creatorId === props.profile.id))
+    })
     return {
       router,
-      //   state
+      state,
+      getScore() {
+        try {
+          return state.profileDay.dailyScore
+        } catch (error) {
+          Notification.toast('Error: ' + error, 'error')
+        }
+      },
       profilePage() {
         try {
           router.push({ name: 'ProfilePage', params: { id: props.profile.id } })
