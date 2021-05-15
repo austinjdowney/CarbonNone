@@ -1,8 +1,17 @@
 <template>
   <header>
+    <span class="navbar-text">
+      <button
+        class="btn btn-outline-primary text-uppercase ml-2"
+        @click="logout"
+        v-if="user.isAuthenticated"
+      >
+        Logout
+      </button>
+    </span>
     <MyNavbar />
   </header>
-  <main class="mt-4">
+  <main>
     <router-view />
   </main>
   <footer>
@@ -31,13 +40,36 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
 import { AppState } from './AppState'
+import { AuthService } from './services/AuthService'
+import Notification from './utils/Notification'
 export default {
-  name: 'App',
+  name: 'AboutPage',
   setup() {
+    const state = reactive({
+      dropOpen: false
+    })
     return {
-      appState: computed(() => AppState)
+      state,
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
+      async login() {
+        AuthService.loginWithPopup()
+      },
+      async signUp() {
+        AuthService.loginWithRedirect({
+          screen_hint: 'signup'
+        })
+      },
+      async logout() {
+        if (await Notification.confirmAction('Are you sure you want to logout?', '')) {
+          await AuthService.logout({ returnTo: window.location.origin })
+        }
+      },
+      activeProfile() {
+        AppState.activeProfile = state.account
+      }
     }
   }
 }
@@ -46,5 +78,27 @@ export default {
 @import "./assets/scss/main.scss";
 .github-link{
   color: #FFF
+}
+
+.dropdown-menu {
+  user-select: none;
+  display: block;
+  transform: scale(0);
+  transition: all 0.15s linear;
+}
+.dropdown-menu.show {
+  transform: scale(1);
+}
+.hoverable {
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: none;
+}
+.nav-link{
+  text-transform: uppercase;
+}
+.nav-item .nav-link.router-link-exact-active{
+  color: var(--primary);
 }
 </style>
