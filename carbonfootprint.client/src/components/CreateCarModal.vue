@@ -9,11 +9,12 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          <img class="modal-logo" src="../assets/img/carbonfootprintlogo2.png" alt="">
           <h5 class="modal-title" id="exampleModalLabel">
-            New Car
+            Create Car
           </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            <span class="exit-modal-icon" aria-hidden="true">&times;</span>
           </button>
         </div>
         <form @submit.prevent="createCar">
@@ -44,17 +45,17 @@
                          required
                   >
                 </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="model">Model:</label>
-                    <input type="text"
-                           class="form-control"
-                           id="model"
-                           placeholder="Model..."
-                           v-model="state.newCar.model"
-                           required
-                    >
-                  </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="model">Model:</label>
+                  <input type="text"
+                         class="form-control"
+                         id="model"
+                         placeholder="Model..."
+                         v-model="state.newCar.model"
+                         required
+                  >
                 </div>
               </div>
             </div>
@@ -70,41 +71,38 @@
                          required
                   >
                 </div>
-                <div class="col-12">
-                  <div class="dropdown">
-                    <small>Select Your Fuel Type</small>
-                    <select class="form-select" aria-labelledby="dropdownMenuButton" v-model="state.newCar.gasType">
-                      <option value="unleaded">
-                        Unleaded
-                      </option>
-                      <option value="hybrid">
-                        Hybrid
-                      </option>
-                      <option value="diesel">
-                        Diesel
-                      </option>
-                    </select>
-                  </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="mpg">Miles Per Gallon:</label>
+                  <input type="number"
+                         class="form-control"
+                         id="mpg"
+                         placeholder="MPG..."
+                         v-model="state.newCar.mpg"
+                         required
+                  >
                 </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="mpg">Miles Per Gallon:</label>
-                    <input type="number"
-                           class="form-control"
-                           id="mpg"
-                           placeholder="MPG..."
-                           v-model="state.newCar.mpg"
-                           required
-                    >
-                  </div>
+              </div>
+              <div class="col-12">
+                <div class="dropdown">
+                  <label class="mr-1">Select Fuel Type</label>
+                  <select class="form-select" style="border: 1px gray solid;" aria-labelledby="dropdownMenuButton" v-model="state.newCar.gasType">
+                    <option value="unleaded">
+                      Unleaded
+                    </option>
+                    <option value="hybrid">
+                      Hybrid
+                    </option>
+                    <option value="diesel">
+                      Diesel
+                    </option>
+                  </select>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-warning" data-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" class="btn btn-success">
+              <button type="submit" class="btn btn-grad-modal">
                 Create
               </button>
             </div>
@@ -154,5 +152,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/_variables.scss';
+@import "../assets/scss/main.scss";
 
+.btn-grad-cancel:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
 </style>

@@ -9,6 +9,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          <img class="modal-logo" src="../assets/img/carbonfootprintlogo2.png" alt="">
           <h5 class="modal-title" id="exampleModalLabel">
             Edit Car
           </h5>
@@ -40,15 +41,15 @@
                          v-model="state.newCar.make"
                   >
                 </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="model">Model:</label>
-                    <input type="text"
-                           class="form-control"
-                           placeholder="Model..."
-                           v-model="state.newCar.model"
-                    >
-                  </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="model">Model:</label>
+                  <input type="text"
+                         class="form-control"
+                         placeholder="Model..."
+                         v-model="state.newCar.model"
+                  >
                 </div>
               </div>
             </div>
@@ -62,39 +63,36 @@
                          v-model="state.newCar.year"
                   >
                 </div>
-                <div class="col-12">
-                  <div class="dropdown">
-                    <small>Select Your Fuel Type</small>
-                    <select class="form-select" aria-labelledby="dropdownMenuButton" v-model="state.newCar.gasType">
-                      <option value="unleaded">
-                        Unleaded
-                      </option>
-                      <option value="hybrid">
-                        Hybrid
-                      </option>
-                      <option value="diesel">
-                        Diesel
-                      </option>
-                    </select>
-                  </div>
+              </div>
+              <div class="col-12">
+                <div class="dropdown">
+                  <label class=" mr-1">Select Fuel Type</label>
+                  <select class="form-select" style="border: 1px gray solid;" aria-labelledby="dropdownMenuButton" v-model="state.newCar.gasType">
+                    <option value="unleaded">
+                      Unleaded
+                    </option>
+                    <option value="hybrid">
+                      Hybrid
+                    </option>
+                    <option value="diesel">
+                      Diesel
+                    </option>
+                  </select>
                 </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="mpg">Miles Per Gallon:</label>
-                    <input type="number"
-                           class="form-control"
-                           placeholder="MPG..."
-                           v-model="state.newCar.mpg"
-                    >
-                  </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="mpg">Miles Per Gallon:</label>
+                  <input type="number"
+                         class="form-control"
+                         placeholder="MPG..."
+                         v-model="state.newCar.mpg"
+                  >
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-warning" data-dismiss="modal">
-                Submit
-              </button>
-              <button type="submit" class="btn btn-success">
+              <button type="submit" class="btn btn-grad-modal">
                 Create
               </button>
             </div>
@@ -149,5 +147,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '../assets/scss/_variables.scss';
+@import "../assets/scss/main.scss";
+.btn-grad-cancel {
+  background-image: linear-gradient(to right, $danger 0%, #d32020 100%);
+  margin: 2px;
+  padding: 3px 10px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 0px #eee;
+  border-radius: 10px;
+  display: block;
+  font-size: .7em;
+}
+.btn-grad-cancel:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
 </style>

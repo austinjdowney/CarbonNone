@@ -8,5 +8,7 @@ export const AppState = reactive({
   profiles: [],
   house: {},
   cars: [],
-  days: []
+  days: [],
+  dates: [],
+  scores: []
 })

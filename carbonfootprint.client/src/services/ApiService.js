@@ -1,11 +1,11 @@
 import { AppState } from '../AppState'
-import { weatherApi } from './AxiosService'
-// import { newsApi } from './AxiosService'
+import { weatherApi, newsApi } from './AxiosService'
+
 class ApiService {
-  // async getNewsApi() {
-  //   const res = await newsApi.get('')
-  //   AppState.newsApi = res.data.value
-  // }
+  async getNewsApi() {
+    const res = await newsApi.get('')
+    AppState.newsApi = res.data.value
+  }
 
   async getWeatherApi() {
     const res = await weatherApi.get('')

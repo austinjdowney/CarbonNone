@@ -4,7 +4,7 @@ import { api } from './AxiosService'
 class DaysService {
   async getAllDays() {
     const res = await api.get('api/days')
-    AppState.days = res.data
+    AppState.days = res.data.reverse()
   }
 
   async getDayById(id) {
@@ -15,6 +15,7 @@ class DaysService {
   async getDaysByProfileId(profileId) {
     const res = await api.get(`api/profiles/${profileId}/days`)
     AppState.days = res.data
+    return JSON.parse(JSON.stringify(res.data))
   }
 
   async createDay(data) {

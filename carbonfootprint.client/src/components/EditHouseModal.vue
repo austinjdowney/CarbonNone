@@ -9,6 +9,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
+          <img class="modal-logo" src="../assets/img/carbonfootprintlogo2.png" alt="">
           <h5 class="modal-title" id="exampleModalLabel">
             Edit House
           </h5>
@@ -42,35 +43,32 @@
                          v-model="state.newHouse.members"
                   >
                 </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="electricKwh">Electric:</label>
-                    <input type="number"
-                           class="form-control"
-                           id="editElectricKwh"
-                           placeholder="Kwh per month..."
-                           v-model="state.newHouse.electricKwh"
-                    >
-                  </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="electricKwh">Electric:</label>
+                  <input type="number"
+                         class="form-control"
+                         id="editElectricKwh"
+                         placeholder="Kwh per month..."
+                         v-model="state.newHouse.electricKwh"
+                  >
                 </div>
-                <div class="col-12">
-                  <div class="form-group">
-                    <label for="waterGallons">Water:</label>
-                    <input type="number"
-                           class="form-control"
-                           id="editWaterGallons"
-                           placeholder="Gallons per month..."
-                           v-model="state.newHouse.waterGallons"
-                    >
-                  </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="waterGallons">Water:</label>
+                  <input type="number"
+                         class="form-control"
+                         id="editWaterGallons"
+                         placeholder="Gallons per month..."
+                         v-model="state.newHouse.waterGallons"
+                  >
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-warning" data-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" class="btn btn-success">
+              <button type="submit" class="btn btn-grad-modal">
                 Submit
               </button>
             </div>
@@ -121,5 +119,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '../assets/scss/_variables.scss';
+@import "../assets/scss/main.scss";
+.btn-grad-cancel {
+  background-image: linear-gradient(to right, $danger 0%, #d32020 100%);
+  margin: 2px;
+  padding: 3px 10px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 0px #eee;
+  border-radius: 10px;
+  display: block;
+  font-size: .7em;
+}
+.btn-grad-cancel:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
 </style>

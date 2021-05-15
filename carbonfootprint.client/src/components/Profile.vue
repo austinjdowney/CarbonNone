@@ -1,20 +1,21 @@
 <template>
   <div @click="profilePage" class="profile col-12">
-    <div class="user-summary component-spacing d-flex">
-      <img :src="profile.picture" alt="" class="sm-img user-summary__avatar mr-2">
+    <div class="user-summary component-spacing d-flex align-items-center">
+      <i class="fas fa-user-circle fa-2x sm-img user-summary__avatar mr-2"></i>
       <div class="user-summary__data d-flex flex-column w-100 text-left">
         <p class="user-summary__data--name mb-0">
           {{ profile.name }}
         </p>
         <div class="progress" v-if="state.profileDay">
-          <div class="progress-bar bg-warning"
+          <div class="progress-bar"
+               :class="`${state.profileDay.dailyScore}` >= 50 ? 'bg-above' : `${state.profileDay.dailyScore}` >= 35 ? 'bg-average': 'bg-below'"
                role="progressbar"
                :style="'width:' + `${state.profileDay.dailyScore}` +'%;'"
                :aria-valuenow="`${state.profileDay.dailyScore}`"
                aria-valuemin="0"
                aria-valuemax="100"
           >
-            {{ state.profileDay.dailyScore }} kg/co2
+            {{ state.profileDay.dailyScore }} Kg/CO₂
           </div>
         </div>
       </div>
@@ -67,8 +68,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/_variables.scss';
+@import "../assets/scss/main.scss";
 .sm-img{
 border-radius: 50%;
 max-height: 3rem;
+}
+.bg-above{
+ background-color: $danger;
+}
+.bg-average{
+background-color: $yellow;
+}
+.bg-below{
+background-color: $primary;
 }
 </style>

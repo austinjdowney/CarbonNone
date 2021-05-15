@@ -1,15 +1,18 @@
 <template>
   <div class="Car row" v-if="car.closed === false">
     <div class="col-12">
-      <div class="car-summary component-spacing d-flex">
-        <div class="car-summary__data d-flex flex-column w-100 text-left">
-          <h5 class="car-summary__data--name mb-0">
-            {{ car.title }} || Year: {{ car.year }}
-          </h5>
+      <div class="car-summary component-car d-flex">
+        <div class="car-summary__data d-flex flex-column w-100 text-left ml-2">
+          <strong>{{ car.title }}</strong>
           <div>
-            Make: {{ car.make }} || Model: {{ car.model }}
+            <ul class="list">
+              <li>Year: {{ car.year }}</li>
+              <li>Make: {{ car.make }}</li>
+              <li>Model: {{ car.model }}</li>
+              <li>MPG: {{ car.mpg }}</li>
+              <li>Fuel Type: {{ car.gasType }}</li>
+            </ul>
           </div>
-          <p>MPG: {{ car.mpg }} || Fuel Type: {{ car.gasType }}</p>
           <div class="d-flex">
             <button title="Open Edit Car Form"
                     type="button"
@@ -22,7 +25,7 @@
             </button>
             <button
               type="button"
-              class="btn btn-sm btn-danger"
+              class="btn btn-grad-cancel"
               v-if="state.account.id === route.params.id"
               @click="deleteCar"
             >
@@ -78,5 +81,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '../assets/scss/_variables.scss';
+@import "../assets/scss/main.scss";
+.component-car {
+  margin: .5rem !important;
+  padding-bottom: 1rem !important;
+  border-bottom: 1px solid $primary;
+}
+.list{
+  list-style-type: circle;
+}
+.btn-grad-cancel {
+  background-image: linear-gradient(to right, $danger 0%, #d32020 100%);
+  margin: 2px;
+  padding: 3px 10px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 0px #eee;
+  border-radius: 10px;
+  display: block;
+  font-size: .7em;
+}
+.btn-grad-cancel:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
 </style>

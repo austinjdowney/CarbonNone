@@ -2,38 +2,134 @@
   <div class="container-fluid">
     <div class="row flex-column">
       <div class="col-12 about">
-        <div class="about__header text-left mt-4 mb-4">
-          <h1 class="about__header--title mb-0">
-            Carbon Footprint
-          </h1>
-          <p class="about__header--subtitle">
-            mission statement subtitle
-          </p>
+        <div class="about__header text-left mt-5 mb-4 d-flex align-items-center">
+          <img class="about-logo" src="../assets/img/carbonfootprintlogo2.png" alt="">
+          <div>
+            <h1 class="about__header--title mb-0">
+              Carbon<span class="sub">None</span>
+            </h1>
+            <p class="about__header--subtitle">
+              Healing the world, one step at a time
+            </p>
+          </div>
         </div>
+        <div class="buttons d-flex justify-content-around mb-3">
+          <span class="navbar-text">
+            <button
+              class="btn btn-outline-primary text-uppercase"
+              @click="login"
+              v-if="!user.isAuthenticated"
+            >
+              Login
+            </button>
+
+            <!-- <div class="dropdown" v-else>
+              <div
+                class="dropdown-toggle"
+                @click="state.dropOpen = !state.dropOpen"
+              >
+                <img
+                  :src="user.picture"
+                  alt="user photo"
+                  height="40"
+                  class="rounded"
+                />
+                <span class="mx-3">{{ user.name }}</span>
+              </div>
+              <div
+                class="dropdown-menu p-0 list-group w-100"
+                :class="{ show: state.dropOpen }"
+                @click="state.dropOpen = false"
+              >
+                <router-link :to="{ name: 'Account' }">
+                  <div class="list-group-item list-group-item-action hoverable">
+                    Account
+                  </div>
+                </router-link>
+                <div
+                  class="list-group-item list-group-item-action hoverable"
+                  @click="logout"
+                >
+                  logout
+                </div>
+              </div>
+            </div> -->
+          </span>
+          <span class="navbar-text">
+            <button
+              class="btn btn-outline-primary text-uppercase"
+              @click="signUp"
+              v-if="!user.isAuthenticated"
+            >
+              Sign Up
+            </button>
+
+            <!-- <div class="dropdown" v-else>
+              <div
+                class="dropdown-toggle"
+                @click="state.dropOpen = !state.dropOpen"
+              >
+                <img
+                  :src="user.picture"
+                  alt="user photo"
+                  height="40"
+                  class="rounded"
+                />
+                <span class="mx-3">{{ user.name }}</span>
+              </div>
+              <div
+                class="dropdown-menu p-0 list-group w-100"
+                :class="{ show: state.dropOpen }"
+                @click="state.dropOpen = false"
+              >
+                <router-link :to="{ name: 'Account' }">
+                  <div class="list-group-item list-group-item-action hoverable">
+                    Account
+                  </div>
+                </router-link>
+                <div
+                  class="list-group-item list-group-item-action hoverable"
+                  @click="logout"
+                >
+                  logout
+                </div>
+              </div>
+            </div> -->
+          </span>
+        </div>
+
         <div class="about__mission-statement">
           <h5 class="about__mission-statement--title">
-            Keep track of your daily CO2 emissions:
+            Carbon Footprint?
           </h5>
           <p class="about__mission-statement--text">
-            Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.
+            Anyone who wants to contribute to stopping <strong>global warming</strong>, at least on an individual scale, needs to measure and keep track of their personal carbon footprint.
           </p>
+          <div class="about__mission-statement--icons d-flex justify-content-around my-4 py-3">
+            <i class="fas fa-2x fa-car about__mission-statement--icon"></i>
+            <i class="fas fa-2x fa-home about__mission-statement--icon"></i>
+            <i class="fas fa-2x fa-faucet about__mission-statement--icon"></i>
+          </div>
         </div>
         <div class="about__how-to-use">
           <h5 class="about__how-to-use--title">
-            How to track your emissions:
+            How to use:
           </h5>
           <p class="about__how-to-use--text">
-            Text explaining how to use the app and what the ratings are based off of, national average ect...
+            We've created an easy to use application to input your daily data, such as miles driven, as well as basic home utilites to give you a general idea of your carbon footprint, and the awarness to adjust and improve your day to day output.
           </p>
+          <div class="about__how-to-use--text d-flex flex-column mb-2">
+            <p>For each day you input data you'll receive a customized score. The lower the score, the smaller your carbon footprint.</p>
+          </div>
           <div class="about__how-to-use--progress d-flex flex-column mb-2">
             <p class="mb-0">
-              Good average...
+              Great: &lt; 35 Kg/CO₂ per day
             </p>
             <div class="progress">
-              <div class="progress-bar bg-success"
+              <div class="progress-bar progress-bar-success"
                    role="progressbar"
                    style="width: 25%"
-                   aria-valuenow="25"
+                   aria-valuenow="35"
                    aria-valuemin="0"
                    aria-valuemax="100"
               ></div>
@@ -41,24 +137,25 @@
           </div>
           <div class="about__how-to-use--progress d-flex flex-column mb-2">
             <p class="mb-0">
-              Medium average...
+              Average: &lt;
+              50 Kg/CO₂ per day
             </p>
             <div class="progress">
-              <div class="progress-bar bg-warning"
+              <div class="progress-bar progress-bar-average"
                    role="progressbar"
-                   style="width: 55%"
-                   aria-valuenow="55"
+                   style="width: 50%"
+                   aria-valuenow="50"
                    aria-valuemin="0"
                    aria-valuemax="100"
               ></div>
             </div>
           </div>
-          <div class="about__how-to-use--progress d-flex flex-column">
+          <div class="about__how-to-use--progress d-flex flex-column mb-4">
             <p class="mb-0">
-              Bad average...
+              Extreme: > 50 Kg/CO₂ per day
             </p>
             <div class="progress">
-              <div class="progress-bar bg-danger"
+              <div class="progress-bar progress-bar-bad"
                    role="progressbar"
                    style="width: 75%"
                    aria-valuenow="75"
@@ -72,54 +169,128 @@
     </div>
   </div>
 </template>
-
 <script>
-
+import { computed, reactive } from 'vue'
+import { AppState } from '../AppState'
+import { AuthService } from '../services/AuthService'
 export default {
-  name: 'AboutPage'
+  name: 'AboutPage',
+  setup() {
+    const state = reactive({
+      dropOpen: false
+    })
+    return {
+      state,
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
+      async login() {
+        AuthService.loginWithPopup()
+      },
+      async signUp() {
+        AuthService.loginWithRedirect({
+          screen_hint: 'signup'
+        })
+      },
+      async logout() {
+        await AuthService.logout({ returnTo: window.location.origin })
+      },
+      activeProfile() {
+        AppState.activeProfile = state.account
+      }
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
-  @import '../assets/scss/_variables.scss';
+@import '../assets/scss/_variables.scss';
 @import "../assets/scss/main.scss";
-  *{
-    border: solid 1px red;
-  }
-  .about {
+// * {
+//   border: 1px solid red;
+// }
+.about-logo{
+  transform: rotate(90deg);
+  height: 2.5rem;
+}
+.about {
   font-family: $secondary-font;
   position: relative;
+  overflow: hidden;
   &__header {
     font-family: $primary-font;
     line-height: .8;
+      i {
+      position: absolute;
+      top:-1rem;
+      left: -1rem;
+      font-size: 5rem;
+      transform: rotate(120deg);
+      color: rgba($primary, .8);
+    }
     &--title {
       text-transform: uppercase;
-      font-size: 1.8rem;
+      font-size: 2rem;
+      font-weight: 600;
+      .sub{
+        font-weight: 300;
+      }
     }
     &--subtitle {
-      font-weight: 200;
+      font-size: .8rem;
+      font-weight: 400;
     }
   }
-  &__mission-statement--title {
-    // font-family: $primary-font;
-    text-transform: uppercase;
-    line-height: 1.4;
-    font-size: 1.4em;
-  }
-  &__mission-statement--text {
-    font-family: $secondary-font;
-    line-height: 1.6;
+  &__mission-statement {
+    &--title {
+      font-family: $primary-font;
+      text-transform: uppercase;
+      // line-height: 1.6;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: $primary;
+    }
+    &--text {
+      font-family: $secondary-font;
+      line-height: 1.6;
+      font-size: 1.2rem;
+    }
+    &--icons {
+      border-top: .15rem solid $primary;
+      border-bottom: .15rem solid $primary;
+    }
   }
   &__how-to-use {
+    position: relative;
+    i {
+      position: absolute;
+      top: -1rem;
+      right: -1rem;
+      font-size: 5rem;
+      transform: rotate(-80deg);
+      color: rgba($primary, .8);
+      z-index: 0
+    }
     &--title {
+      font-family: $primary-font;
+      color: $primary;
+      font-weight: bold;
     text-transform: uppercase;
-    line-height: 1.4;
-    font-size: 1.4em;
+    // line-height: 1.6;
+    font-size: 1.3em;
     }
     &--text {
     font-family: $secondary-font;
+    font-size: 1.2rem;
     line-height: 1.6;
     }
   }
+  .progress-bar-average {
+    background-color: $yellow;
+  }
+  .progress-bar-bad {
+    background-color: $danger;
+  }
+  span {
+    color: $dark;
+  }
 }
-
 </style>

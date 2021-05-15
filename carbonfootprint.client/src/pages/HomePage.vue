@@ -3,16 +3,17 @@
     Loading...
   </div>
   <div v-else class="home container-fluid flex-grow-1 d-flex flex-column">
-    <div class="row">
+    <div class="row" v-if="state.profileDay">
       <div class="col-12">
         <div class="current-score current-score__container text-left component-spacing">
           <small class="current-score__welcome">Welcome User</small>
-          <h6 class="current-score__title">
+          <h6 class="current-score__title" v-if="state.profileDay">
             Most Recent CO₂ Score - <span>{{ state.profileDay.dailyScore }} Kg/CO₂</span>
           </h6>
           <div class="progress current-score__progress">
-            <div class="progress-bar bg-success"
+            <div class="progress-bar"
                  role="progressbar"
+                 :class="`${state.profileDay.dailyScore}` >= 50 ? 'bg-above' : `${state.profileDay.dailyScore}` >= 35 ? 'bg-average': 'bg-below'"
                  :style="'width:' + `${state.profileDay.dailyScore}` +'%;'"
                  :aria-valuenow="`${state.profileDay.dailyScore}`"
                  aria-valuemin="0"
@@ -25,11 +26,12 @@
         <div class="weekly-score component-spacing weekly-score__container text-left">
           <h6 class="weekly-score__title">
             <!-- YTD AVERAGE HERE -->
-            Your YTD Daily Average - <span :value="averageScore()"> {{ state.totalScore }} </span> Kg/CO₂
+            YTD Daily Average - <span :value="averageScore()"> {{ state.totalScore }} Kg/CO₂ </span>
           </h6>
           <div class="progress weekly-score__progress">
-            <div class="progress-bar bg-success"
+            <div class="progress-bar"
                  role="progressbar"
+                 :class="`${state.profileDay.dailyScore}` >= 50 ? 'bg-above' : `${state.profileDay.dailyScore}` >= 35 ? 'bg-average': 'bg-below'"
                  :style="'width:' + `${state.totalScore}` +'%;'"
                  :aria-valuenow="`${state.totalScore}`"
                  aria-valuemin="0"
@@ -40,26 +42,35 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-12">
+        <div>
+          <small>
+            Please go to the <router-link :to="{ name: 'ProfilePage', params: {id: state.account.id}}">
+              Profile Page
+            </router-link>
+            to register your scores
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-6 flex-grow-1 d-flex stretch">
-        <div class="component-spacing--small w-100" v-if="state.weather">
-          <p> <b> {{ state.weather.city }}, {{ state.weather.state }} </b> </p>
-          <img :src="getPic()" class="weatherImg" />
-          <p> AQI: {{ state.weather.current.pollution.aqius }} </p>
-          <p>Temp: {{ state.tempFahrenheit }} </p>
+        <div class="component-spacing--small w-100">
+          <img class="img-fluid eco-logo" src="../assets/img/EcoLogo3.png" alt="ecoLogo">
         </div>
       </div>
       <div class="col-6">
-        <div class="weather weather__container component-spacing--small">
-          <p class="weather__air-quality">
-            Air Quality: 29 AQI
-          </p>
-          <div class="weather__data pb-0">
-            <i class="fas fa-sun weather__data--icon fa-3x"></i>
-            <small class="weather__data--temp">76°</small>
+        <div class="weather weather__container component-spacing--small" v-if="state.weather">
+          <div class="show-weather">
+            <p class="weather__air-quality">
+              Air Quality: <strong>{{ state.weather.current.pollution.aqius }} AQI</strong>
+            </p>
+            <small class="weather__data--temp">{{ state.tempFahrenheit }}°</small>
             <p class="weather__data--location mb-0">
-              Boise, ID
+              {{ state.weather.city }}, ID
             </p>
           </div>
+          <img :src="getPic()" class="weatherImg" />
         </div>
       </div>
     </div>
@@ -75,9 +86,9 @@
       <div class="row">
         <div class="col-12">
           <h5 class="text-left mt-3 news__title">
-            Your Environmental News Feed
+            Environmental News Feed
           </h5>
-          <!-- <NewsFeed v-for="news in state.news" :key="news.id" :news="news" /> -->
+          <NewsFeed v-for="news in state.news" :key="news.id" :news="news" />
         </div>
       </div>
     </div>
@@ -99,22 +110,22 @@ export default {
       activeProfile: computed(() => AppState.activeProfile),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
-      profiles: computed(() => AppState.profiles),
-      // news: computed(() => AppState.newsApi),
+      profiles: computed(() => AppState.profiles.slice(0, 5)),
+      news: computed(() => AppState.newsApi),
       weather: computed(() => AppState.weatherApi),
       profileDay: computed(() => AppState.days.find(d => d.creatorId === state.account.id)),
       ytdScores: computed(() => AppState.days.filter(d => d.creatorId === state.account.id)),
       totalScore: 0,
       tempFahrenheit: computed(() => {
         const C = state.weather.current.weather.tp
-        return (C * (9 / 5) + 32)
+        return Math.floor(C * (9 / 5) + 32)
       })
       // icon: computed(()=> AppState.weatherApi.current.weather.ic)
     })
     onMounted(async() => {
       await daysService.getAllDays()
       await profilesService.getAllProfiles()
-      // await apiService.getNewsApi()
+      await apiService.getNewsApi()
       await apiService.getWeatherApi()
       state.loading = false
     })
@@ -165,33 +176,51 @@ export default {
     margin: 0 !important;
   }
 .weather {
+  position: relative;
+  overflow: hidden;
+  min-height: 10rem;
+
   &__air-quality {
-    font-size: .8rem;
+    font-size: 1rem;
+    font-weight: thin;
   }
   &__data {
-    position: relative;
     &--icon {
       color: $yellow;
     }
     &--temp {
-      position: absolute;
       top: .5em;
       right: 2.25em;
+      font-size: 2rem;
+      font-weight: bold;
     }
     &--location {
+      position: absolute;
+      bottom: -4rem;
+      left: .1rem;
+      font-size: 1.35rem;
       font-weight: bold;
     }
   }
 }
 .weatherImg{
-  height: 80px;
+  height: 10rem;
+  position: absolute;
+  top: 2rem;
+  right: -3rem;
+}
+.eco-logo{
+  max-height: 99%;
 }
 .user__title {
   font-family: $primary-font;;
+  font-size: 1.4rem;
 }
 .news__title {
   font-family: $primary-font;
+  font-size: 1.4rem;
 }
+
 .user-summary {
   &__avatar {
     height: 3rem;
@@ -211,5 +240,19 @@ export default {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   }
+}
+.bg-above{
+ background-color: $danger;
+}
+.bg-average{
+background-color: $yellow;
+}
+.bg-below{
+background-color: $primary;
+}
+
+.show-weather {
+  z-index: 1 !important;
+  position: relative;
 }
 </style>

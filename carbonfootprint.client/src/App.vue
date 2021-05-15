@@ -1,27 +1,31 @@
 <template>
   <header>
-    <Navbar />
+    <MyNavbar />
   </header>
-  <main>
+  <main class="mt-4">
     <router-view />
   </main>
   <footer>
-    <div class="bg-dark text-light text-center p-4">
-      <p>
-        Made with 💖 by
-      </p>
-      <a href="http://www.github.com/austinjdowney">
-        www.github.com/austinjdowney
-      </a>
-      <a href="http://www.github.com/alecvictory">
-        www.github.com/alecvictory
-      </a>
-      <a href="http://www.github.com/LoganPonder">
-        www.github.com/LoganPonder
-      </a>
-      <a href="http://www.github.com/Toppedyk">
-        www.github.com/Toppedyk
-      </a>
+    <div class="bg-dark text-light text-center p-3 d-flex align-items-center justify-content-around">
+      <div>
+        <a class="github-link" href="http://www.github.com/austinjdowney">
+          Austin Downey
+        </a>
+        <br>
+        <a class="github-link" href="http://www.github.com/alecvictory">
+          Alec Victory
+        </a>
+      </div>
+      <i class="fab fa-github text-light fa-2x" aria-hidden="true"></i>
+      <div class="">
+        <a class="github-link" href="http://www.github.com/LoganPonder">
+          Logan Ponder
+        </a>
+        <br>
+        <a class="github-link" href="http://www.github.com/Toppedyk">
+          Taylor Oppedyk
+        </a>
+      </div>
     </div>
   </footer>
 </template>
@@ -40,5 +44,7 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
-
+.github-link{
+  color: #FFF
+}
 </style>
