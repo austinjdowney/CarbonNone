@@ -39,7 +39,6 @@ async function getDates() {
   if (days.length >= 7) {
     days = days.splice(0, 7)
   }
-  console.log(days)
   const dates = days.map(d => d.date.slice(5, 10))
   return dates
 }
