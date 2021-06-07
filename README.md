@@ -2,6 +2,15 @@
 
 https://austinjdowney.github.io/CarbonFootprint/
 
+API's 
+
+  News
+      - expire middle of May,2022
+      - 100 requests a day
+  Weather
+      - expire middle of May, 2022
+      - 10,000 requests a day
+
 Figma: https://www.figma.com/file/gmDUIk1K09aWFU58gbUQdb/Untitled?node-id=0%3A1
 
 Trello: https://trello.com/invite/b/s6PdZmES/2c5f809a4bfa80d6f1d3e19353fd43b4/eco-sistent
