@@ -5,7 +5,7 @@ export const api = Axios.create({
   timeout: 8000
 })
 export const weatherApi = Axios.create({
-  baseURL: 'http://api.airvisual.com/v2/city?city=Meridian&state=Idaho&country=USA&key=040cdc41-fc2a-44dd-a696-5d6245acce0e',
+  baseURL: 'https://api.airvisual.com/v2/city?city=Boise&state=Idaho&country=USA&key=040cdc41-fc2a-44dd-a696-5d6245acce0e',
   timeout: 8000
 })
 export const newsApi = Axios.create({
