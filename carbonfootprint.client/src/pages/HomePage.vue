@@ -122,11 +122,11 @@ export default {
       })
       // icon: computed(()=> AppState.weatherApi.current.weather.ic)
     })
-    onMounted(async() => {
+    onMounted(() => {
       daysService.getAllDays()
       apiService.getNewsApi()
       apiService.getWeatherApi()
-      await profilesService.getAllProfiles()
+      profilesService.getAllProfiles()
       state.loading = false
     })
     return {
