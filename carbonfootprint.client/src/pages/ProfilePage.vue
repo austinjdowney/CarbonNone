@@ -159,10 +159,10 @@ export default {
     //   }
     // )
     onMounted(async() => {
+      daysService.getDaysByProfileId(route.params.id)
       await profilesService.getProfileById(route.params.id)
       await carsService.getCarsByProfileId(route.params.id)
       await housesService.getHousesByProfileId(route.params.id)
-      await daysService.getDaysByProfileId(route.params.id)
       state.loading = false
     })
     return {
