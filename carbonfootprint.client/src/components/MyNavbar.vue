@@ -48,7 +48,6 @@ export default {
         document.querySelector('.navigation__checkbox').checked = false
         // document.getElementById('nav-list').classList.toggle('hide')
         // document.querySelectorAll('.navigation__link').classList.toggle('hide')
-        console.log('checked')
       },
       account: computed(() => AppState.account),
       user: computed(() => AppState.user),
